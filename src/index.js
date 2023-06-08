@@ -28,12 +28,19 @@ function characterDetails(character) {
     totalVotes.textContent = character.votes
     
     const formElement = document.getElementById('votes-form')
-    formElement.addEventListener('submit', (event) => {
-        event.preventDefault()
-        character.votes++;
-        totalVotes.textContent = character.votes
-    })
+    formElement.addEventListener('submit', addVotes)
+    
 }
 
-
-
+function addVotes(event) {
+    event.preventDefault()
+    const form = event.target
+    const totalVotes = document.getElementById('vote-count')
+    const votesInput = form.elements.votes
+    
+    const votes = parseInt(votesInput.value) || 0;
+    
+    const characterVotes = parseInt(totalVotes.textContent.trim()) || 0;
+    totalVotes.textContent = characterVotes + votes
+    form.reset()
+}
